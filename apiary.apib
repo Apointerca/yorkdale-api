@@ -1,0 +1,78 @@
+FORMAT: 1A
+HOST: http://apointer.ca
+
+# API documentation for Yorkdale
+
+# Group General
+Please refer to [Decision Graph](http://clojure-liberator.github.io/liberator/assets/img/decision-graph.svg) for details.
+
+## General HTTP status code
+As HTTP status code contains a lot of information, here we demonstration some of them so we can use them directly in our response.
+
+### 200
+This is the most common status code. It basically means things are going well.
+But usually it returns together with response body.
+Mostly for `GET` request.
+
+### 201
+This status code indicates the requested resource has been created.
+Response body should be returned together.
+Mostly for `POST` request.
+
+### 204
+Similar to `200`, but nothing would come together with this status.
+Mostly for `DELETE` and `PUT` requests.
+
+## General HTTP status error code
+
+To avoid redundent error code declaration, here we list all the default meaning of corresponding error code.
+Please explicitly in each response if the response is different from what state here.
+
+### 400
+Malformed request, this request is reported.
+### 401
+This request is not authorized.
+### 403
+This request doesn't have permission to access the resource.
+### 404
+The target resource not found.
+### 405
+HTTP request method not found.
+### 406
+The request parameters and headers not acceptable.
+Please change it according to documentation.
+### 409
+Usually happens when creating a resource that already exists.
+
+# Data Structure
+
+## Pagination (object)
++ pageNumber: `1` (number, required) - The current page number, start from `1`
++ pageSize: `10` (number, required) - The number of record in each page. The minimum size is `5`
++ totalPage: `3` (number, required) - The total number of pages, minimum is `1`
+
+# Data Structure
+
+### Contact Us Request (object)
++ firstName: `First Name` (string, optional)
++ lastName: `Last Name` (string, optional)
++ email: `test@email.com` (string, required)
++ phone: `1233455432` (string, optional)
++ message: `This is the message` (string, optional)
+
+### Contact Us response (object)
++ cuid: `2` (number, required)
++ Include (Contact Us Request)
+
+# Group Admin
+
+## Contact Us [/contact-us]
+
+### Post Contact Us [POST]
+
++ request (application/json)
+    + Attributes (Contact Us Request)
+
++ response 201 (application/json)
+    + Attributes (Contact Us response)
+
